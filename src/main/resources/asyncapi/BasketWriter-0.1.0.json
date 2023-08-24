@@ -63,6 +63,17 @@
         "x-ep-event-name": "Basket",
         "contentType": "application/json",
         "x-ep-event-state-id": "2"
+      },
+      "RiskyBasket": {
+        "x-ep-event-version-displayname": "",
+        "description": "A basket which has a risk profile associated with it due to some reason like high quantity threshold",
+        "x-ep-shared": "false",
+        "schemaFormat": "application/vnd.aai.asyncapi+json;version=2.0.0",
+        "payload": {
+          "$ref": "#/components/schemas/Basket"
+        },
+        "contentType": "application/json",
+        "x-ep-event-state-id": "2"
       }
     }
   },
@@ -98,6 +109,35 @@
           "x-ep-parameter-name": "id"
         }
       }
+    },
+    "retail/acme/online/riskyBasket/{verb}/v1/{id}": {
+      "subscribe": {
+        "message": {
+          "$ref": "#/components/messages/RiskyBasket"
+        }
+      },
+      "parameters": {
+        "verb": {
+          "schema": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "VALIDATED",
+              "UPDATED"
+            ]
+          },
+          "x-ep-enum-name": "verb",
+          "x-ep-enum-state-id": "2",
+          "x-ep-enum-id": "6fwmthcsldk",
+          "x-ep-application-domain-name": "Online Services"
+        },
+        "id": {
+          "schema": {
+            "type": "string"
+          },
+          "x-ep-parameter-name": "id"
+        }
+      }
     }
   },
   "asyncapi": "2.5.0",
@@ -109,7 +149,7 @@
     "x-ep-state-name": "RELEASED",
     "title": "Basket Service - Basket Writer (REST proxy)",
     "x-ep-application-domain-id": "cs84cvdnyrh",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "x-ep-state-id": "2",
     "x-ep-application-domain-name": "Online Services"
   }

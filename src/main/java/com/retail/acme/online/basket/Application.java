@@ -28,6 +28,10 @@ public class Application {
 		Basket basketTobePosted = createBasketModel();
 		log.info("Posting Basket event :{}", basketTobePosted);
 		sendRetailAcmeOnlineBasketVerbV1Id(basketTobePosted, "CREATED", "11111");
+		if (basketTobePosted.getQuantity() > 5) {
+			log.info("Posting RiskyBasket event :{}", basketTobePosted);
+			sendRetailAcmeOnlineRiskyBasketVerbV1Id(basketTobePosted, "CREATED", basketTobePosted.getId());
+		}
 	}
 
 	private Basket createBasketModel() {
@@ -52,4 +56,10 @@ public class Application {
 			verb, id);
 		streamBridge.send(topic, payload);
 	}
+
+	public void sendRetailAcmeOnlineRiskyBasketVerbV1Id(Basket payload, String verb, String basketId) {
+		String topic = String.format("retail/acme/online/riskyBasket/%s/v1/%s", verb, basketId);
+		streamBridge.send(topic, payload);
+	}
+
 }
